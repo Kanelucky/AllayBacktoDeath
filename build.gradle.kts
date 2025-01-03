@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "2.1.0"
     id("com.gradleup.shadow") version "8.3.0"
 }
 
@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
     compileOnly(group = "org.allaymc.allay", name = "api", version = "master-SNAPSHOT")
 }
 
