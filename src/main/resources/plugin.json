@@ -1,7 +1,7 @@
 {
-  "entrance": "vip.cdms.allayplugin.KotlinPluginTemplate",
+  "entrance": ".KotlinPluginTemplate",
   "name": "KotlinPluginTemplate",
-  "description": "Hello Allay from Kotlin!",
+  "description": "${description}",
   "authors": [
     "Cdm2883"
   ],
