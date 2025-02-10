@@ -46,11 +46,13 @@ tasks.register<Copy>("runServer") {
     from(shadowJar.archiveFile.get().asFile)
     into(cwd.resolve("plugins").apply { mkdirs() })
 
+    val isDownloaded = cwd.listFiles()!!.any { it.isFile && it.nameWithoutExtension == "allay" }
     val isWindows = System.getProperty("os.name").startsWith("Windows")
     fun launch() = exec {
         workingDir = cwd
-        if (isWindows) commandLine("powershell", "-Command", cmdWin)
-        else commandLine("sh", "-c", cmdLinux)
+        val cmd = if (isDownloaded) "./allay" else if (isWindows) cmdWin else cmdLinux
+        if (isWindows) commandLine("powershell", "-Command", cmd)
+        else commandLine("sh", "-c", cmd)
     }
 
     // https://github.com/gradle/gradle/issues/18716  // kill it manually by click X...
