@@ -20,6 +20,14 @@ repositories {
 dependencies {
     @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
     compileOnly(group = "org.allaymc.allay", name = "api", version = "master-SNAPSHOT")
+
+    implementation(group = "com.github.MineBuilders", name = "allaymc-kotlinx", version = "master-SNAPSHOT")
+
+    // TODO: uncomment to use kotlin shared lib
+    // compileOnly(kotlin("stdlib"))
+    // compileOnly(kotlin("stdlib-jdk7"))
+    // compileOnly(kotlin("stdlib-jdk8"))
+    // compileOnly(kotlin("reflect"))
 }
 
 kotlin {
