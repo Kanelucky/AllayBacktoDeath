@@ -56,3 +56,12 @@ tasks.register<Copy>("runServer") {
     // https://github.com/gradle/gradle/issues/18716  // kill it manually by click X...
     doLast { launch() }
 }
+
+tasks.named("processResources") {
+    doLast {
+        val origin = file("src/main/resources/plugin.json")
+        val processed = file("${layout.buildDirectory.get()}/resources/main/plugin.json")
+        val content = origin.readText().replace("\${version}", version.toString())
+        processed.writeText(content)
+    }
+}
