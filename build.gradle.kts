@@ -54,13 +54,13 @@ tasks.register<JavaExec>("runServer") {
 }
 
 tasks.named("processResources") {
+    fun String.process() =
+        replace("\"entrance\": \".", "\"entrance\": \"" + project.group.toString() + ".")
+        .replace("\${description}", project.description.toString())
+        .replace("\${version}", version.toString())
     doLast {
         val origin = file("src/main/resources/plugin.json")
         val processed = file("${layout.buildDirectory.get()}/resources/main/plugin.json")
-        val content = origin.readText()
-            .replace("\"entrance\": \".", "\"entrance\": \"" + project.group.toString() + ".")
-            .replace("\${description}", project.description.toString())
-            .replace("\${version}", version.toString())
-        processed.writeText(content)
+        processed.writeText(origin.readText().process())
     }
 }
