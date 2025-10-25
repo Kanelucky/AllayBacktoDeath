@@ -11,17 +11,16 @@ version = "0.1.0-alpha"
 
 repositories {
     mavenCentral()
-    maven("https://jitpack.io/")
+    maven("https://www.jetbrains.com/intellij-repository/releases/")
     maven("https://repo.opencollab.dev/maven-releases/")
     maven("https://repo.opencollab.dev/maven-snapshots/")
     maven("https://storehouse.okaeri.eu/repository/maven-public/")
 }
 
+// specify `runServer` version, or null for latest
+val serverVersion: String? = null
 dependencies {
-    @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
-    compileOnly(group = "org.allaymc.allay", name = "api", version = "0.2.0")
-
-    implementation(group = "com.github.MineBuilders", name = "allaymc-kotlinx", version = "master-SNAPSHOT")
+    compileOnly(group = "org.allaymc.allay", name = "api", version = "0.15.0")
 
     // TODO: uncomment to use kotlin shared lib
     // compileOnly(kotlin("stdlib"))
@@ -45,9 +44,9 @@ tasks.register<JavaExec>("runServer") {
     doFirst { pluginJar.copyTo(File(pluginsDir, pluginJar.name), overwrite = true) }
 
     val group = "org.allaymc.allay"
-    val allays = configurations.compileOnly.get().dependencies.filter { it.group == group }
-    val dependency = allays.find { it.name == "server" } ?: allays.find { it.name == "api" }!!
-    val server = dependencies.create("$group:server:${dependency.version}")
+    val version = serverVersion ?: configurations.compileOnly.get().dependencies
+        .find { it.group == group && it.name == "server" }?.version ?: "+"
+    val server = dependencies.create("$group:server:${version}")
     classpath = files(configurations.detachedConfiguration(server).resolve())
     mainClass = "org.allaymc.server.Allay"
     workingDir = cwd
