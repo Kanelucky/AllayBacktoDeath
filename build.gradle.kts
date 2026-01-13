@@ -5,9 +5,9 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 
-group = "vip.cdms.allayplugin"
-description = "Hello Allay from Kotlin!"
-version = "0.1.0-alpha"
+group = "org.kanelucky"
+description = "Return to your last death location"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -17,16 +17,10 @@ repositories {
     maven("https://storehouse.okaeri.eu/repository/maven-public/")
 }
 
-// specify `runServer` version, or null for latest
+
 val serverVersion: String? = null
 dependencies {
-    compileOnly(group = "org.allaymc.allay", name = "api", version = "0.15.0")
-
-    // TODO: uncomment to use kotlin shared lib
-    // compileOnly(kotlin("stdlib"))
-    // compileOnly(kotlin("stdlib-jdk7"))
-    // compileOnly(kotlin("stdlib-jdk8"))
-    // compileOnly(kotlin("reflect"))
+    compileOnly(group = "org.allaymc.allay", name = "api", version = "0.21.0")
 }
 
 kotlin {
